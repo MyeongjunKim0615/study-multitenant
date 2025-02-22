@@ -1,0 +1,44 @@
+services:
+  mariadb:
+    # DataBase 포트번호: 3306
+    container_name: "maria_db"
+    image: mariadb:10
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - "../mariadb/conf.d:/etc/mysql/conf.d"
+      - "../mariadb/data:/var/lib/mysql"
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+    environment:
+      MARIADB_DATABASE: projectdb
+      MARIADB_USER: root
+      MARIADB_PASSWORD: root1234
+      MARIADB_ROOT_PASSWORD: root1234
+    networks:
+      - project
+
+#     플라스크 포트번호: 5000, 리액트 포트번호: 3000
+  frontend:
+    build: ../FrontEnd
+    ports:
+      - "5000:5000"
+    networks:
+      - project
+  redis:
+    image: "redis:alpine"
+    networks:
+      - project
+
+  backend:
+# 스프링 부트 포트번호: 8080
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    networks:
+      - project
+
+networks:
+  project:
