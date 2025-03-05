@@ -26,7 +26,7 @@ class MultitenantConfiguration {
         dataSourceBuilder.url("jdbc:postgresql://localhost:5432/test?currentSchema=public");
         dataSourceBuilder.username("user1");
         dataSourceBuilder.password("user1234");
-        dataSourceBuilder.driverClassName("org.postgresql.Driver");
+        dataSourceBuilder.driverClassName("org.post gresql.Driver");
 
         DataSource defaultDataSource = dataSourceBuilder.build();
         dataSourceMap.put("public", defaultDataSource); // 기본 테넌트 추가
