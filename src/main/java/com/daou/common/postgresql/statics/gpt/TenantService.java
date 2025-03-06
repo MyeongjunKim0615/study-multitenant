@@ -25,11 +25,12 @@ public class TenantService {
             Statement statement = connection.createStatement()
         ) {
             // 새로운 테넌트(사용자)의 스키마 생성
-            statement.executeUpdate("CREATE SCHEMA IF NOT EXISTS $tenantId");
+            statement.executeUpdate("CREATE SCHEMA IF NOT EXISTS " + tenantId);
+            
 
             // 해당 스키마에 기본 테이블 생성
             statement.executeUpdate(
-            "CREATE TABLE IF NOT EXISTS ${tenantId}.users (" + // users는 테이블 이름
+            "CREATE TABLE IF NOT EXISTS " + tenantId + ".users (" + // users는 테이블 이름
                 "id SERIAL PRIMARY KEY, " +
                 "name VARCHAR(255) NOT NULL, " +
                 "email VARCHAR(255) UNIQUE NOT NULL)"
