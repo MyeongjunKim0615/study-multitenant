@@ -1,5 +1,7 @@
 package com.daou.common.postgresql.statics.gpt;
 
+import com.daou.exception.ControlledException;
+import com.daou.exception.errorcode.BasicErrorCode;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
@@ -33,7 +35,7 @@ public class TenantService {
                 "email VARCHAR(255) UNIQUE NOT NULL)"
             );
         } catch (SQLException e) {
-            throw new RuntimeException("Error creating schema for tenant: " + tenantId, e);
+            throw new ControlledException(BasicErrorCode.DATA_BASE_ERROR);
         }
     }
 }
